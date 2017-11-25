@@ -6,10 +6,11 @@ import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import { reducer as categories } from './app/categories/reducers/categories';
+import { reducer as posts } from './app/posts/reducers/posts';
 import thunk from 'redux-thunk';
 import { BrowserRouter } from 'react-router-dom';
 
-const rootReducer = combineReducers({categories});
+const rootReducer = combineReducers({categories, posts});
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

@@ -1,8 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom';
+import serializeForm from 'form-serialize';
+import * as uuid from 'uuid';
+import { createPost } from '../actions/posts';
 
 class Posts extends Component {
+    handleAddPost = (e) => {
+        e.preventDefault();
+
+        const values = serializeForm(e.target, { hash: true });
+        const post = {
+            id: uuid.v4(),
+            timestamp: Date.now(),
+            title: values.title,
+            body: values.body,
+            author: values.name,
+            category: values.category
+        };
+
+        this.props.dispatch(createPost(post));
+    };
+
     render() {
         const {categories} = this.props;
 

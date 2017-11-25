@@ -10,12 +10,6 @@ class App extends Component {
         this.props.dispatch(fetchCategories());
     }
 
-    handleAddPost = (e) => {
-        e.preventDefault();
-
-
-    };
-
     render() {
         const {categories} = this.props;
 

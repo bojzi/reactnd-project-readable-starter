@@ -1,6 +1,5 @@
 import * as ReadableAPIUtil from '../../../utils/api';
 
-export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const REPLACE_CATEGORIES = 'REPLACE_CATEGORIES';
 
 export const fetchCategories = () => dispatch => {
@@ -16,8 +15,6 @@ export const replaceCategories = (categories) => {
             [cat.name]: cat
         }
     }, {});
-
-    console.log(reducedCategories);
 
     return {
         type: REPLACE_CATEGORIES,

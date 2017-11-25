@@ -1,6 +1,6 @@
 import { REPLACE_CATEGORIES } from '../actions/categories';
 
-export function reducer(state = [], action) {
+export function reducer(state = {}, action) {
     switch (action.type) {
         case REPLACE_CATEGORIES:
             const { categories } = action;
