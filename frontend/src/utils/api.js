@@ -4,6 +4,11 @@ export function fetchCategories() {
         .then(({ categories }) => categories)
 }
 
+export function fetchPosts() {
+    return fetchUrl('/posts')
+        .then((res) => res.json())
+}
+
 export function createPost(post) {
     return fetchUrl('/posts', 'POST', post)
         .then((res) => res.json());
@@ -12,7 +17,7 @@ export function createPost(post) {
 function fetchUrl(url, method, body) {
     const apiUrl = 'http://localhost:3001';
     const options = {
-        headers: { 'Authorization': 'whereas-tact-uruguay-monument-fairly' },
+        headers: { 'Authorization': 'whereas-candy-uruguay-monument-fairly' },
         method: 'GET'
     };
 

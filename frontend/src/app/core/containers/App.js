@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import './App.css';
 import { connect } from 'react-redux'
 import { fetchCategories } from '../../categories/actions/categories';
-import Posts from '../../posts/containers/Posts';
+import PostList from '../../posts/components/PostList';
 import { Route, Link, withRouter } from 'react-router-dom';
+import { getPosts } from '../../posts/actions/posts';
+import AddPost from '../../posts/components/AddPost';
 
 class App extends Component {
     componentDidMount() {
         this.props.dispatch(fetchCategories());
+        this.props.dispatch(getPosts());
     }
 
     render() {
@@ -43,11 +46,11 @@ class App extends Component {
 
                         <div className="eleven wide column">
                             <Route exact path="/" render={() => (
-                                <h1>Home</h1>
+                                <PostList/>
                             )}/>
 
                             <Route path="/add-post" render={() => (
-                                <Posts/>
+                                <AddPost/>
                             )}/>
                         </div>
                     </div>

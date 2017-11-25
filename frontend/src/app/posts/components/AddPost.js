@@ -5,7 +5,7 @@ import serializeForm from 'form-serialize';
 import * as uuid from 'uuid';
 import { createPost } from '../actions/posts';
 
-class Posts extends Component {
+class AddPost extends Component {
     handleAddPost = (e) => {
         e.preventDefault();
 
@@ -66,4 +66,4 @@ function mapStateToProps({categories}) {
 
 export default withRouter(connect(
     mapStateToProps
-)(Posts));
+)(AddPost));
