@@ -15,6 +15,12 @@ export const createPost = (post) => dispatch => {
         .then(res => dispatch(addPost(res)));
 };
 
+export const votePost = (postId, vote) => dispatch => {
+    ReadableAPIUtil
+        .votePost(postId, vote)
+        .then(res => dispatch(addPost(res)));
+};
+
 export const addPost = (post) => {
     return {
         type: ADD_POST,

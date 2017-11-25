@@ -19,6 +19,11 @@ export function createPost(post) {
         .then((res) => res.json());
 }
 
+export function votePost(postId, vote) {
+    return fetchUrl('/posts/' + postId, 'POST', { option: vote })
+        .then((res) => res.json());
+}
+
 function fetchUrl(url, method, body) {
     const apiUrl = 'http://localhost:3001';
     const options = {

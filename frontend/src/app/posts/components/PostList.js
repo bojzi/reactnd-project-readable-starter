@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom';
 import * as moment from 'moment';
+import { votePost } from '../actions/posts';
 
 class PostList extends Component {
     formatDate = (date) => {
@@ -15,6 +16,14 @@ class PostList extends Component {
         if (!category || posts.length === 0) return posts;
 
         return posts.filter(post => post[1].category === category);
+    };
+
+    upVote = (postId) => {
+        this.props.dispatch(votePost(postId, 'upVote'));
+    };
+
+    downVote = (postId) => {
+        this.props.dispatch(votePost(postId, 'downVote'));
     };
 
     render() {
@@ -56,10 +65,12 @@ class PostList extends Component {
                         </div>
 
                         <div className="ui two bottom attached buttons">
-                            <div className="ui basic green button">
+                            <div className="ui basic green button"
+                                onClick={() => this.upVote(post[1].id)}>
                                 Upvote
                             </div>
-                            <div className="ui basic red button">
+                            <div className="ui basic red button"
+                                 onClick={() => this.downVote(post[1].id)}>
                                 Downvote
                             </div>
                         </div>

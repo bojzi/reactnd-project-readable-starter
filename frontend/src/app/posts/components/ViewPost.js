@@ -3,11 +3,20 @@ import { connect } from 'react-redux'
 import * as moment from 'moment';
 import { fetchComments } from '../actions/comments';
 import { withRouter } from 'react-router-dom';
+import { votePost } from '../actions/posts';
 
 class ViewPost extends Component {
     componentDidMount() {
         const {id} = this.props.match.params;
         this.props.dispatch(fetchComments(id));
+    };
+
+    upVote = (postId) => {
+        this.props.dispatch(votePost(postId, 'upVote'));
+    };
+
+    downVote = (postId) => {
+        this.props.dispatch(votePost(postId, 'downVote'));
     };
 
     formatDate = (date) => {
@@ -20,7 +29,6 @@ class ViewPost extends Component {
         const {id} = this.props.match.params;
 
         const post = posts.length > 0 ? posts.find(post => post[1].id === id)[1] : null;
-        console.log(post);
 
         return (
             <div>
@@ -52,10 +60,12 @@ class ViewPost extends Component {
                                         </span>
                                     </div>
                                     <div className="ui two bottom attached buttons">
-                                        <div className="ui basic green button">
+                                        <div className="ui basic green button"
+                                             onClick={() => this.upVote(post.id)}>
                                             Upvote
                                         </div>
-                                        <div className="ui basic red button">
+                                        <div className="ui basic red button"
+                                             onClick={() => this.downVote(post.id)}>
                                             Downvote
                                         </div>
                                     </div>
