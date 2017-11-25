@@ -18,7 +18,8 @@ class CommentList extends Component {
     };
 
     render() {
-        const comments = Object.entries(this.props.comments);
+        const comments = Object.entries(this.props.comments)
+            .sort((comment1, comment2) => comment1[1].voteScore < comment2[1].voteScore);
 
         return (
             <div>
