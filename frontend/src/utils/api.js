@@ -32,7 +32,7 @@ export function voteComment(commentId, vote) {
 function fetchUrl(url, method, body) {
     const apiUrl = 'http://localhost:3001';
     const options = {
-        headers: { 'Authorization': 'whereas-candy-uruguay-monument-fairly' },
+        headers: { 'Authorization': 'whereas-candy-uruguay-monument-fairly-QUICKLY' },
         method: 'GET'
     };
 

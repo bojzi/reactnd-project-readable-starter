@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom';
 
 class Navigation extends Component {
@@ -19,4 +18,4 @@ class Navigation extends Component {
     }
 }
 
-export default withRouter(connect()(Navigation));
+export default withRouter(Navigation);

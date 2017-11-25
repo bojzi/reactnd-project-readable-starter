@@ -22,7 +22,6 @@ class CommentList extends Component {
 
         return (
             <div>
-                <h3 className="ui header">Comments</h3>
                 {comments.length > 0 && comments.map((comment) => (
                     <div className="ui fluid card" key={comment[1].id}>
                         <div className="content">

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import * as moment from 'moment';
 import { fetchComments } from '../actions/comments';
 import { withRouter } from 'react-router-dom';
 import { votePost } from '../actions/posts';
 import CommentList from './CommentList';
+import Post from './Post';
 
 class ViewPost extends Component {
     componentDidMount() {
@@ -12,16 +12,8 @@ class ViewPost extends Component {
         this.props.dispatch(fetchComments(id));
     };
 
-    upVote = (postId) => {
-        this.props.dispatch(votePost(postId, 'upVote'));
-    };
-
-    downVote = (postId) => {
-        this.props.dispatch(votePost(postId, 'downVote'));
-    };
-
-    formatDate = (date) => {
-        return moment(date).fromNow();
+    vote = (postId, vote) => {
+        this.props.dispatch(votePost(postId, vote));
     };
 
     render() {
@@ -33,52 +25,13 @@ class ViewPost extends Component {
         return (
             <div>
                 <h2 className="ui header">View post</h2>
-                {
-                    post ? (
-                            <div>
-                                <div className="ui fluid card">
-                                    <div className="content">
-                                        <div className="header">
-                                            {post.title}
-                                        </div>
-                                        <div className="meta">
-                                            <span>Posted {this.formatDate(post.timestamp)} by {post.author}
-                                                in {post.category}</span>
-                                        </div>
-                                        <p>
-                                            {post.body}
-                                        </p>
-                                    </div>
-                                    <div className="extra content">
-                                        <span className="right floated">
-                                            <i className="icon comment"></i>
-                                            Comments: {post.commentCount}
-                                        </span>
-                                        <span>
-                                            <i className="icon heart"></i>
-                                            Score: {post.voteScore}
-                                        </span>
-                                    </div>
-                                    <div className="ui two bottom attached buttons">
-                                        <div className="ui basic green button"
-                                             onClick={() => this.upVote(post.id)}>
-                                            Upvote
-                                        </div>
-                                        <div className="ui basic red button"
-                                             onClick={() => this.downVote(post.id)}>
-                                            Downvote
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <CommentList/>
-                            </div>
-                        )
-                        :
-                        (
-                            <p>Unknown post.</p>
-                        )
-                }
+                <Post post={post}
+                      basic={false}
+                      onVote={this.vote}/>
+
+                <h3>Comments</h3>
+                <CommentList/>
             </div>
         );
     }

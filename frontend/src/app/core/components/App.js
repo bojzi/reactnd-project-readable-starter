@@ -5,7 +5,7 @@ import { fetchCategories } from '../../categories/actions/categories';
 import PostList from '../../posts/components/PostList';
 import { Route, withRouter } from 'react-router-dom';
 import { getPosts } from '../../posts/actions/posts';
-import AddPost from '../../posts/components/AddPost';
+import PostForm from '../../posts/components/PostForm';
 import CategoryList from '../../categories/components/CategoryList';
 import Navigation from './Navigation';
 import ViewPost from '../../posts/components/ViewPost';
@@ -34,7 +34,9 @@ class App extends Component {
 
                             <Route path="/post/:id" component={ViewPost}/>
 
-                            <Route path="/add-post" component={AddPost}/>
+                            <Route path="/add-post" component={PostForm}/>
+
+                            <Route path="/edit-post/:id" component={PostForm}/>
                         </div>
                     </div>
                 </div>
