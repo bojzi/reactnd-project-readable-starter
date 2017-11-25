@@ -8,6 +8,7 @@ import { getPosts } from '../../posts/actions/posts';
 import AddPost from '../../posts/components/AddPost';
 import CategoryList from '../../categories/components/CategoryList';
 import Navigation from './Navigation';
+import ViewPost from '../../posts/components/ViewPost';
 
 class App extends Component {
     componentDidMount() {
@@ -29,9 +30,9 @@ class App extends Component {
                         <div className="eleven wide column">
                             <Route exact path="/" component={PostList}/>
 
-                            <Route path="/category/:category" render={() => (
-                                <PostList/>
-                            )}/>
+                            <Route path="/category/:category" component={PostList}/>
+
+                            <Route path="/post/:id" component={ViewPost}/>
 
                             <Route path="/add-post" component={AddPost}/>
                         </div>

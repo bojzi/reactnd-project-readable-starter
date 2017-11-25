@@ -9,6 +9,11 @@ export function fetchPosts() {
         .then((res) => res.json())
 }
 
+export function fetchComments(postId) {
+    return fetchUrl('/posts/' + postId + '/comments')
+        .then((res) => res.json())
+}
+
 export function createPost(post) {
     return fetchUrl('/posts', 'POST', post)
         .then((res) => res.json());

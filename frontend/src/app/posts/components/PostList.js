@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import * as moment from 'moment';
 
 class PostList extends Component {
@@ -24,17 +24,21 @@ class PostList extends Component {
             <div>
                 {
                     category ? (
-                            <h1 className="ui header">Posts in category {category}</h1>
+                            <h2 className="ui header">Posts in category {category}</h2>
                         )
                         : (
-                            <h1 className="ui header">All posts</h1>
+                            <h2 className="ui header">All posts</h2>
                         )
                 }
 
                 {this.getPosts().map((post) => (
                     <div className="ui fluid card" key={post[1].id}>
                         <div className="content">
-                            <div className="header">{post[1].title}</div>
+                            <div className="header">
+                                <Link to={'/post/' + post[1].id }>
+                                    {post[1].title}
+                                </Link>
+                            </div>
                             <div className="meta">
                                 <span>Posted {this.formatDate(post[1].timestamp)} by {post[1].author} in {post[1].category}</span>
                             </div>
@@ -49,7 +53,6 @@ class PostList extends Component {
                                 <i className="icon heart"></i>
                                 Score: {post[1].voteScore}
                             </span>
-
                         </div>
 
                         <div className="ui two bottom attached buttons">

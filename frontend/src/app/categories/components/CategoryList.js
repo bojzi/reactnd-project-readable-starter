@@ -8,7 +8,7 @@ class CategoryList extends Component {
 
         return (
             <div className="ui segment">
-                <h1 className="ui header">Categories</h1>
+                <h3 className="ui header">Categories</h3>
                 <div className="ui relaxed divided list">
                     {Object.entries(categories).map((category) => (
                         <div className="item" key={category[1].name}>
