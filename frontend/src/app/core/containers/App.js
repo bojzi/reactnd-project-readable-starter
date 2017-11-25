@@ -37,7 +37,9 @@ class App extends Component {
                                 <div className="ui relaxed divided list">
                                     {Object.entries(categories).map((category) => (
                                         <div className="item" key={category[1].name}>
-                                            {category[1].name}
+                                            <Link to={'/category/' + category[1].path}>
+                                                {category[1].name}
+                                            </Link>
                                         </div>
                                     ))}
                                 </div>
@@ -45,13 +47,13 @@ class App extends Component {
                         </div>
 
                         <div className="eleven wide column">
-                            <Route exact path="/" render={() => (
+                            <Route exact path="/" component={PostList}/>
+
+                            <Route path="/category/:category" render={() => (
                                 <PostList/>
                             )}/>
 
-                            <Route path="/add-post" render={() => (
-                                <AddPost/>
-                            )}/>
+                            <Route path="/add-post" component={AddPost}/>
                         </div>
                     </div>
                 </div>

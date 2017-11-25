@@ -23,7 +23,6 @@ export const addPost = (post) => {
 };
 
 export const replacePosts = (posts) => {
-    console.log(posts);
     const reducedPosts = posts.reduce((allPosts, post) => {
         return {
             ...allPosts,
