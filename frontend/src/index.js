@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './app/core/containers/App';
 import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import { reducer as categories } from './app/categories/reducers/categories';
 import thunk from 'redux-thunk';
+import { BrowserRouter } from 'react-router-dom';
 
-const rootReducer = combineReducers({ categories });
+const rootReducer = combineReducers({categories});
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -20,9 +21,12 @@ export const store = createStore(
 );
 
 ReactDOM.render(
-    <Provider store={store}>
-        <App/>
-    </Provider>,
+    <BrowserRouter>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </BrowserRouter>,
+
     document.getElementById('root')
 );
 registerServiceWorker();
