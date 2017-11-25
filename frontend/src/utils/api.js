@@ -19,6 +19,11 @@ export function createPost(post) {
         .then((res) => res.json());
 }
 
+export function updatePost(postId, title, body) {
+    return fetchUrl('/posts/' + postId, 'PUT', {title: title, body: body})
+        .then((res) => res.json());
+}
+
 export function deletePost(postId) {
     return fetchUrl('/posts/' + postId, 'DELETE')
         .then((res) => res.json());

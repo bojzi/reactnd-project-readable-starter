@@ -3,29 +3,20 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom';
 import serializeForm from 'form-serialize';
 import * as uuid from 'uuid';
-import { createPost } from '../actions/posts';
+import { createPost, updatePost } from '../actions/posts';
 
 class PostForm extends Component {
     handleAddPost = (e) => {
         e.preventDefault();
 
-        let newPost = {};
         const values = serializeForm(e.target, {hash: true});
 
         if (this.props.match.params.id) {
             const post = getPost(this.props);
-
-            newPost = {
-                ...post,
-                timestamp: Date.now(),
-                title: values.title,
-                body: values.body,
-                author: values.name,
-                category: values.category
-            }
+            this.props.dispatch(updatePost(post.id, values.title, values.body));
         }
         else {
-            newPost = {
+            const post = {
                 id: uuid.v4(),
                 timestamp: Date.now(),
                 title: values.title,
@@ -33,9 +24,9 @@ class PostForm extends Component {
                 author: values.name,
                 category: values.category
             };
+            this.props.dispatch(createPost(post.id, values.title, values.body));
         }
-
-        this.props.dispatch(createPost(newPost));
+        
         this.props.history.goBack();
     };
 
@@ -56,14 +47,20 @@ class PostForm extends Component {
     render() {
         const {categories} = this.props;
 
-        let post = {};
+        let post = null;
         if (this.props.match.params.id) {
             post = getPost(this.props);
         }
 
         return (
             <div>
-                <h1 className="ui header">Add Post</h1>
+                {
+                    !post ? (
+                        <h1 className="ui header">Add Post</h1>
+                    ) : (
+                        <h1 className="ui header">Edit Post</h1>
+                    )
+                }
                 <form className="ui form" onSubmit={this.handleAddPost}>
                     <div className="field">
                         <label htmlFor="post-title">Title</label>
@@ -75,22 +72,28 @@ class PostForm extends Component {
                         <textarea name="body" ref="postBody" id="post-body" cols="30" rows="10"
                                   defaultValue={post ? post.body : ''}></textarea>
                     </div>
-                    <div className="field">
-                        <label htmlFor="post-name">Your name</label>
-                        <input type="text" ref="postName" id="post-name" name="name"
-                               defaultValue={post ? post.author : ''} placeholder="Your name"/>
-                    </div>
-                    <div className="field">
-                        <label htmlFor="post-category">Category</label>
-                        <select name="category" ref="postCategory" id="post-category"
-                                defaultValue={post ? post.category : ''}>
-                            {Object.entries(categories).map((category) => (
-                                <option key={category[1].name} value={category[1].name}>
-                                    {category[1].name}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+                    {
+                        !post && (
+                            <div>
+                                <div className="field">
+                                    <label htmlFor="post-name">Your name</label>
+                                    <input type="text" ref="postName" id="post-name" name="name"
+                                           defaultValue={post ? post.author : ''} placeholder="Your name"/>
+                                </div>
+                                <div className="field">
+                                    <label htmlFor="post-category">Category</label>
+                                    <select name="category" ref="postCategory" id="post-category"
+                                            defaultValue={post ? post.category : ''}>
+                                        {Object.entries(categories).map((category) => (
+                                            <option key={category[1].name} value={category[1].name}>
+                                                {category[1].name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+                        )
+                    }
                     <button className="ui button primary" type="submit">Submit post</button>
                 </form>
             </div>
