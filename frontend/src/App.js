@@ -1,21 +1,38 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { connect } from 'react-redux'
+import { fetchCategories } from './app/categories/actions/categories';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    componentDidMount() {
+        this.props.dispatch(fetchCategories());
+    }
+
+    render() {
+        const { categories } = this.props;
+
+        return (
+            <div className="App">
+                <h1>Readable</h1>
+
+                <ul>
+                    { Object.entries(categories).map((category) => (
+                        <li key={category[1].name}>
+                            {category[1].name}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        );
+    }
 }
 
-export default App;
+function mapStateToProps({ categories }) {
+    return {
+        categories
+    };
+}
+
+export default connect(
+    mapStateToProps
+)(App);
