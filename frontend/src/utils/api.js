@@ -19,6 +19,11 @@ export function createPost(post) {
         .then((res) => res.json());
 }
 
+export function deletePost(postId) {
+    return fetchUrl('/posts/' + postId, 'DELETE')
+        .then((res) => res.json());
+}
+
 export function votePost(postId, vote) {
     return fetchUrl('/posts/' + postId, 'POST', { option: vote })
         .then((res) => res.json());
@@ -32,7 +37,7 @@ export function voteComment(commentId, vote) {
 function fetchUrl(url, method, body) {
     const apiUrl = 'http://localhost:3001';
     const options = {
-        headers: { 'Authorization': 'whereas-candy-uruguay-monument-fairly-QUICKLY' },
+        headers: { 'Authorization': 'whereas-candy-uruguay-monument-fairly-gogo' },
         method: 'GET'
     };
 

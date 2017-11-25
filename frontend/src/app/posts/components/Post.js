@@ -7,7 +7,8 @@ class Post extends Component {
     static propTypes = {
         post: PropTypes.object,
         basic: PropTypes.bool.isRequired,
-        onVote: PropTypes.func.isRequired
+        onVote: PropTypes.func.isRequired,
+        onDelete: PropTypes.func
     };
 
     formatDate = (date) => {
@@ -15,7 +16,7 @@ class Post extends Component {
     };
 
     render() {
-        const {post, basic, onVote} = this.props;
+        const {post, basic, onVote, onDelete} = this.props;
 
         return (
             <div>
@@ -29,8 +30,14 @@ class Post extends Component {
                                         ) : (
                                             <div>
                                                 <div className="header">
-                                                    <Link to={'/edit-post/' + post.id} className="right floated">
-                                                        <i className="icon pencil"></i> Edit
+                                                    <a title="Delete post"
+                                                       href="delete-post"
+                                                       onClick={(e) => { onDelete(post.id, e) }}
+                                                       className="right floated">
+                                                        <i className="icon trash"></i>
+                                                    </a>
+                                                    <Link title="Edit post" to={'/edit-post/' + post.id} className="right floated">
+                                                        <i className="icon pencil"></i>
                                                     </Link>
                                                     <h3 style={{marginTop: 0}}>{post.title}</h3>
                                                 </div>

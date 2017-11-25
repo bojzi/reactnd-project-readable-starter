@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { fetchCategories } from '../../categories/actions/categories';
 import PostList from '../../posts/components/PostList';
 import { Route, withRouter } from 'react-router-dom';
-import { getPosts } from '../../posts/actions/posts';
+import { fetchPosts } from '../../posts/actions/posts';
 import PostForm from '../../posts/components/PostForm';
 import CategoryList from '../../categories/components/CategoryList';
 import Navigation from './Navigation';
@@ -13,7 +13,7 @@ import ViewPost from '../../posts/components/ViewPost';
 class App extends Component {
     componentDidMount() {
         this.props.dispatch(fetchCategories());
-        this.props.dispatch(getPosts());
+        this.props.dispatch(fetchPosts());
     }
 
     render() {

@@ -1,4 +1,4 @@
-import { ADD_POST, REPLACE_POSTS } from '../actions/posts';
+import { ADD_POST, REMOVE_POST, REPLACE_POSTS } from '../actions/posts';
 
 export function reducer(state = {}, action) {
     switch (action.type) {
@@ -14,6 +14,14 @@ export function reducer(state = {}, action) {
                 ...state,
                 [post.id]: post
             };
+
+        case REMOVE_POST:
+            const { removePost } = action;
+
+            let newState = { ...state };
+            delete newState[removePost.id];
+
+            return newState;
 
         default:
             return state;

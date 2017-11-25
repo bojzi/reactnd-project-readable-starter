@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { fetchComments } from '../actions/comments';
 import { withRouter } from 'react-router-dom';
-import { votePost } from '../actions/posts';
+import { deletePost, votePost } from '../actions/posts';
 import CommentList from './CommentList';
 import Post from './Post';
 
@@ -16,11 +16,20 @@ class ViewPost extends Component {
         this.props.dispatch(votePost(postId, vote));
     };
 
+    deleteViewingPost = (postId, e) => {
+        e.preventDefault();
+        this.props.dispatch(deletePost(postId));
+        this.props.history.push('/');
+    };
+
     render() {
         const posts = Object.entries(this.props.posts);
         const {id} = this.props.match.params;
 
-        const post = posts.length > 0 ? posts.find(post => post[1].id === id)[1] : null;
+        let post = null;
+        if (posts.length > 0) {
+            post = posts.find(post => post[1].id === id)[1];
+        }
 
         return (
             <div>
@@ -28,7 +37,8 @@ class ViewPost extends Component {
 
                 <Post post={post}
                       basic={false}
-                      onVote={this.vote}/>
+                      onVote={this.vote}
+                      onDelete={this.deleteViewingPost}/>
 
                 <h3>Comments</h3>
                 <CommentList/>

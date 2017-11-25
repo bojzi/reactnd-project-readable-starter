@@ -1,12 +1,19 @@
 import * as ReadableAPIUtil from '../../../utils/api';
 
 export const ADD_POST = 'ADD_POST';
+export const REMOVE_POST = 'REMOVE_POST';
 export const REPLACE_POSTS = 'REPLACE_POSTS';
 
-export const getPosts = (posts) => dispatch => {
+export const fetchPosts = (posts) => dispatch => {
     ReadableAPIUtil
         .fetchPosts()
         .then(posts => dispatch(replacePosts(posts)));
+};
+
+export const deletePost = (postId) => dispatch => {
+    ReadableAPIUtil
+        .deletePost(postId)
+        .then(res => dispatch(removePost(res)));
 };
 
 export const createPost = (post) => dispatch => {
@@ -25,6 +32,13 @@ export const addPost = (post) => {
     return {
         type: ADD_POST,
         post: post
+    }
+};
+
+export const removePost = (post) => {
+    return {
+        type: REMOVE_POST,
+        removePost: post
     }
 };
 

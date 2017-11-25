@@ -36,6 +36,7 @@ class PostForm extends Component {
         }
 
         this.props.dispatch(createPost(newPost));
+        this.props.history.goBack();
     };
 
     componentWillReceiveProps(props) {
