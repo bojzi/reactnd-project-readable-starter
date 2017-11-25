@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { fetchComments } from '../actions/comments';
 import { withRouter } from 'react-router-dom';
 import { votePost } from '../actions/posts';
+import CommentList from './CommentList';
 
 class ViewPost extends Component {
     componentDidMount() {
@@ -25,7 +26,6 @@ class ViewPost extends Component {
 
     render() {
         const posts = Object.entries(this.props.posts);
-        const comments = Object.entries(this.props.comments);
         const {id} = this.props.match.params;
 
         const post = posts.length > 0 ? posts.find(post => post[1].id === id)[1] : null;
@@ -71,38 +71,7 @@ class ViewPost extends Component {
                                     </div>
                                 </div>
 
-                                <h3 className="ui header">Comments</h3>
-                                {comments.length > 0 && comments.map((comment) => (
-                                    <div className="ui fluid card" key={comment[1].id}>
-                                        <div className="content">
-                                            <div className="meta">
-                                                <span>Posted {this.formatDate(comment[1].timestamp)}
-                                                    by {comment[1].author}</span>
-                                            </div>
-                                            <p>
-                                                {comment[1].body}
-                                            </p>
-                                        </div>
-                                        <div className="extra content">
-                                            <span>
-                                                <i className="icon heart"></i>
-                                                Score: {comment[1].voteScore}
-                                            </span>
-                                        </div>
-                                        <div className="ui two bottom attached buttons">
-                                            <div className="ui basic green button">
-                                                Upvote
-                                            </div>
-                                            <div className="ui basic red button">
-                                                Downvote
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-
-                                {comments.length === 0 && (
-                                    <p>There are currently no comments.</p>
-                                )}
+                                <CommentList/>
                             </div>
                         )
                         :
@@ -115,10 +84,9 @@ class ViewPost extends Component {
     }
 }
 
-function mapStateToProps({posts, comments}) {
+function mapStateToProps({posts}) {
     return {
-        posts,
-        comments
+        posts
     };
 }
 

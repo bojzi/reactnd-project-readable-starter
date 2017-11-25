@@ -1,4 +1,4 @@
-import { REPLACE_COMMENTS } from '../actions/comments';
+import { ADD_COMMENT, REPLACE_COMMENTS } from '../actions/comments';
 
 export function reducer(state = {}, action) {
     switch (action.type) {
@@ -6,6 +6,14 @@ export function reducer(state = {}, action) {
             const { comments } = action;
 
             return comments;
+
+        case ADD_COMMENT:
+            const { comment } = action;
+
+            return {
+                ...state,
+                [comment.id]: comment
+            };
 
         default:
             return state;

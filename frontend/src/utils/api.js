@@ -24,6 +24,11 @@ export function votePost(postId, vote) {
         .then((res) => res.json());
 }
 
+export function voteComment(commentId, vote) {
+    return fetchUrl('/comments/' + commentId, 'POST', { option: vote })
+        .then((res) => res.json());
+}
+
 function fetchUrl(url, method, body) {
     const apiUrl = 'http://localhost:3001';
     const options = {
