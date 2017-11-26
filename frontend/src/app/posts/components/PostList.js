@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom';
-import { votePost } from '../actions/posts';
+import { deletePost, votePost } from '../actions/posts';
 import Post from './Post';
 import './PostList.css';
 
@@ -14,6 +14,11 @@ class PostList extends Component {
         e.preventDefault();
         this.setState({ sorting: sort });
     }
+
+    deletePostInList = (postId, e) => {
+        e.preventDefault();
+        this.props.dispatch(deletePost(postId));
+    };
 
     getPosts = () => {
         let posts = Object.entries(this.props.posts);
@@ -67,7 +72,8 @@ class PostList extends Component {
                     <div style={{marginBottom: '24px'}} key={post[1].id}>
                         <Post post={post[1]}
                               basic={true}
-                              onVote={this.vote}/>
+                              onVote={this.vote}
+                              onDelete={this.deletePostInList}/>
                     </div>
                 ))}
             </div>

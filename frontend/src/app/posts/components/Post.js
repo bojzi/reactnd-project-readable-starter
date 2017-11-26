@@ -27,7 +27,21 @@ class Post extends Component {
                                     <div className="content">
                                         {basic ? (
                                             <div>
-                                                <p><Link to={'/post/' + post.id}>{post.title}</Link></p>
+                                                <div className="header">
+                                                    <a title="Delete post"
+                                                       href="delete-post"
+                                                       onClick={(e) => {
+                                                           onDelete(post.id, e)
+                                                       }}
+                                                       className="right floated">
+                                                        <i className="icon trash"></i>
+                                                    </a>
+                                                    <Link title="Edit post" to={'/edit-post/' + post.id}
+                                                          className="right floated">
+                                                        <i className="icon pencil"></i>
+                                                    </Link>
+                                                    <h3 style={{marginTop: 0}}><Link to={'/post/' + post.id}>{post.title}</Link></h3>
+                                                </div>
                                                 <div className="meta" style={{marginBottom: '12px'}}>
                                                     <span>{this.formatDate(post.timestamp)} by {post.author} in {post.category}</span>
                                                 </div>

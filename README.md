@@ -29,7 +29,9 @@ All actions are sent to the server so the data should stay up to date, even afte
 The home screen is available under the root URL and features:
 * a list of all Posts ordered by vote score
 * the possibility to change the sorting between vote score and timestamp
-* upvoting and downvoting of any post directly from the home screen
+* upvoting, downvoting, editing and deleting of any post directly from the home screen
+* editing a post leads to the post editing screen
+* deleting a post removes the post
 * access to the details of a post with the list of comments by clicking on the post title
 
 ### Category
@@ -41,7 +43,6 @@ The category screen is very similar to the home screen and is accessed by clicki
 The post details page is accessed by clicking on the name of a post and is located under `/post/{post id}`. It features:
 * all of the details of a post (title, body, timestamp, author, category, score, comment count)
 * allows upvoting, downvoting, editing and deleting of the post
-* editing a post leads to the post editing screen
 * deleting a post removes the post and leads back to the home page
 * adding a new comment
 * list of all comments with comment body, timestamp, author and score
