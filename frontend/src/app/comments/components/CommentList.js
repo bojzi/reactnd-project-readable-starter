@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import * as moment from 'moment';
-import { voteComment } from '../actions/comments';
+import { createComment, voteComment } from '../actions/comments';
 import { withRouter } from 'react-router-dom';
+import CommentForm from './CommentForm';
+import * as uuid from 'uuid';
+import { addPost } from '../../posts/actions/posts';
 
 class CommentList extends Component {
+    state = {
+        newCommentFormOpen: false
+    };
+
     upVote = (commentId) => {
         this.props.dispatch(voteComment(commentId, 'upVote'));
     };
@@ -17,12 +24,52 @@ class CommentList extends Component {
         return moment(date).fromNow();
     };
 
+    submitComment = (values) => {
+        const comment = {
+            id: uuid.v4(),
+            timestamp: Date.now(),
+            body: values.body,
+            author: values.name,
+            parentId: this.props.match.params.id
+        };
+        this.props.dispatch(createComment(comment));
+        this.setState({newCommentFormOpen: false});
+
+        const post = Object.entries(this.props.posts).find(post => post[1].id === this.props.match.params.id)[1];
+        post.commentCount = post.commentCount + 1;
+        this.props.dispatch(addPost(post))
+    };
+
     render() {
         const comments = Object.entries(this.props.comments)
             .sort((comment1, comment2) => comment1[1].voteScore < comment2[1].voteScore);
 
         return (
             <div>
+                {comments.length === 0 && (
+                    <p>There are currently no comments.</p>
+                )}
+
+                {
+                    this.state.newCommentFormOpen && (
+                        <CommentForm onCommentSubmit={this.submitComment}
+                                     onCancel={() => {
+                                         this.setState({newCommentFormOpen: false})
+                                     }}/>
+                    )
+                }
+
+                {
+                    !this.state.newCommentFormOpen && (
+                        <button className="ui button green" onClick={() => {
+                            this.setState({newCommentFormOpen: true})
+                        }}>
+                            Add new comment
+                        </button>
+                    )
+                }
+
+
                 {comments.length > 0 && comments.map((comment) => (
                     <div className="ui fluid card" key={comment[1].id}>
                         <div className="content">
@@ -53,17 +100,16 @@ class CommentList extends Component {
                     </div>
                 ))}
 
-                {comments.length === 0 && (
-                    <p>There are currently no comments.</p>
-                )}
+
             </div>
         );
     }
 }
 
-function mapStateToProps({comments}) {
+function mapStateToProps({comments, posts}) {
     return {
-        comments
+        comments,
+        posts
     };
 }
 

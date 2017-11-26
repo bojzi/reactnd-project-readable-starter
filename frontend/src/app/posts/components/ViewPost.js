@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { fetchComments } from '../actions/comments';
 import { withRouter } from 'react-router-dom';
 import { deletePost, votePost } from '../actions/posts';
-import CommentList from './CommentList';
 import Post from './Post';
+import CommentList from '../../comments/components/CommentList';
+import { fetchComments } from '../../comments/actions/comments';
 
 class ViewPost extends Component {
     componentDidMount() {

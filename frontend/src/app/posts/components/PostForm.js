@@ -24,9 +24,9 @@ class PostForm extends Component {
                 author: values.name,
                 category: values.category
             };
-            this.props.dispatch(createPost(post.id, values.title, values.body));
+            this.props.dispatch(createPost(post));
         }
-        
+
         this.props.history.goBack();
     };
 
@@ -54,13 +54,7 @@ class PostForm extends Component {
 
         return (
             <div>
-                {
-                    !post ? (
-                        <h1 className="ui header">Add Post</h1>
-                    ) : (
-                        <h1 className="ui header">Edit Post</h1>
-                    )
-                }
+                <h1 className="ui header">{post ? 'Edit' : 'Add'} Post</h1>
                 <form className="ui form" onSubmit={this.handleAddPost}>
                     <div className="field">
                         <label htmlFor="post-title">Title</label>

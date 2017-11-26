@@ -15,6 +15,12 @@ export const voteComment = (commentId, vote) => dispatch => {
         .then(res => dispatch(addComment(res)));
 };
 
+export const createComment = (comment) => dispatch => {
+    ReadableAPIUtil
+        .createComment(comment)
+        .then(res => dispatch(addComment(res)));
+};
+
 export const addComment = (comment) => {
     return {
         type: ADD_COMMENT,

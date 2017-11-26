@@ -34,6 +34,11 @@ export function votePost(postId, vote) {
         .then((res) => res.json());
 }
 
+export function createComment(comment) {
+    return fetchUrl('/comments', 'POST', comment)
+        .then((res) => res.json());
+}
+
 export function voteComment(commentId, vote) {
     return fetchUrl('/comments/' + commentId, 'POST', { option: vote })
         .then((res) => res.json());
