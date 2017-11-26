@@ -15,7 +15,7 @@ class CommentForm extends Component {
 
         const values = serializeForm(e.target, {hash: true});
 
-        this.props.onCommentSubmit(values);
+        this.props.comment ? this.props.onCommentSubmit(values, this.props.comment) : this.props.onCommentSubmit(values);
     };
 
     componentWillReceiveProps(props) {
@@ -29,7 +29,6 @@ class CommentForm extends Component {
         }
     }
 
-
     render() {
         const {comment} = this.props;
 
@@ -39,7 +38,7 @@ class CommentForm extends Component {
                 <form className="ui form" onSubmit={this.handleCommentForm}>
                     <div className="field">
                         <label htmlFor="comment-body">Comment</label>
-                        <textarea name="body" ref="commentBody" id="comment-body" cols="30" rows="10"
+                        <textarea name="body" ref="commentBody" id="comment-body" cols="30" rows="2"
                                   defaultValue={comment ? comment.body : ''}></textarea>
                     </div>
                     {

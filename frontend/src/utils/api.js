@@ -39,6 +39,16 @@ export function createComment(comment) {
         .then((res) => res.json());
 }
 
+export function updateComment(commentId, body, timestamp) {
+    return fetchUrl('/comments/' + commentId, 'PUT', {body: body, timestamp: timestamp})
+        .then((res) => res.json());
+}
+
+export function deleteComment(commentId) {
+    return fetchUrl('/comments/' + commentId, 'DELETE')
+        .then((res) => res.json());
+}
+
 export function voteComment(commentId, vote) {
     return fetchUrl('/comments/' + commentId, 'POST', { option: vote })
         .then((res) => res.json());

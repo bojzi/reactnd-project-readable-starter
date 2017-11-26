@@ -1,4 +1,4 @@
-import { ADD_COMMENT, REPLACE_COMMENTS } from '../actions/comments';
+import { ADD_COMMENT, REMOVE_COMMENT, REPLACE_COMMENTS } from '../actions/comments';
 
 export function reducer(state = {}, action) {
     switch (action.type) {
@@ -14,6 +14,14 @@ export function reducer(state = {}, action) {
                 ...state,
                 [comment.id]: comment
             };
+
+        case REMOVE_COMMENT:
+            const { removeComment } = action;
+
+            let newState = { ...state };
+            delete newState[removeComment.id];
+
+            return newState;
 
         default:
             return state;
