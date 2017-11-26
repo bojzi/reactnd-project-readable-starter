@@ -7,7 +7,11 @@ class Navigation extends Component {
             <div className="ui fixed inverted menu">
                 <div className="ui container">
                     <Link to='/' className='header item'>
+                        <i className="icon comment outline"></i>
                         Readable
+                    </Link>
+                    <Link to='/' className='item'>
+                        Home
                     </Link>
                     <Link to='/add-post' className='item'>
                         Add post

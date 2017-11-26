@@ -26,7 +26,12 @@ class Post extends Component {
                                 <div className="ui fluid card">
                                     <div className="content">
                                         {basic ? (
-                                            <p><Link to={'/post/' + post.id}>{post.title}</Link></p>
+                                            <div>
+                                                <p><Link to={'/post/' + post.id}>{post.title}</Link></p>
+                                                <div className="meta" style={{marginBottom: '12px'}}>
+                                                    <span>{this.formatDate(post.timestamp)} by {post.author} in {post.category}</span>
+                                                </div>
+                                            </div>
                                         ) : (
                                             <div>
                                                 <div className="header">
@@ -45,9 +50,7 @@ class Post extends Component {
                                                     <h3 style={{marginTop: 0}}>{post.title}</h3>
                                                 </div>
                                                 <div className="meta" style={{marginBottom: '12px'}}>
-                                                        <span>Posted {this.formatDate(post.timestamp)}
-                                                            by {post.author}
-                                                            in {post.category}</span>
+                                                    <span>{this.formatDate(post.timestamp)} by {post.author} in {post.category}</span>
                                                 </div>
                                                 <p>
                                                     {post.body}

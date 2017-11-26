@@ -127,7 +127,7 @@ class CommentList extends Component {
                                         <i className="icon pencil"></i>
                                     </a>
                                     <div className="meta">
-                                        <span>Posted {this.formatDate(comment[1].timestamp)} by {comment[1].author}</span>
+                                        <span>{this.formatDate(comment[1].timestamp)} by {comment[1].author}</span>
                                     </div>
                                     <p>
                                         {comment[1].body}

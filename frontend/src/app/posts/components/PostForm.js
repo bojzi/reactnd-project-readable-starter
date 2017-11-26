@@ -30,6 +30,12 @@ class PostForm extends Component {
         this.props.history.goBack();
     };
 
+    handleCancel = (e) => {
+        e.preventDefault();
+
+        this.props.history.goBack();
+    };
+
     componentWillReceiveProps(props) {
         if (this.props.match.params.id && props.posts) {
             const post = getPost(props);
@@ -54,7 +60,7 @@ class PostForm extends Component {
 
         return (
             <div>
-                <h1 className="ui header">{post ? 'Edit' : 'Add'} Post</h1>
+                <h1 className="ui header">{post ? 'Edit' : 'Add new'} post</h1>
                 <form className="ui form" onSubmit={this.handleAddPost}>
                     <div className="field">
                         <label htmlFor="post-title">Title</label>
@@ -88,7 +94,10 @@ class PostForm extends Component {
                             </div>
                         )
                     }
-                    <button className="ui button primary" type="submit">Submit post</button>
+                    <p>
+                        <button className="ui button primary" type="submit">Submit post</button>
+                        <button type="button" className="ui button" onClick={this.handleCancel}>Cancel</button>
+                    </p>
                 </form>
             </div>
         )
