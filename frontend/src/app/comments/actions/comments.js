@@ -1,8 +1,5 @@
 import * as ReadableAPIUtil from '../../../utils/api';
-
-export const REPLACE_COMMENTS = 'REPLACE_COMMENTS';
-export const ADD_COMMENT = 'ADD_COMMENTS';
-export const REMOVE_COMMENT = 'REMOVE_COMMENT';
+import { ADD_COMMENT, REMOVE_COMMENT, REPLACE_COMMENTS } from './action.types';
 
 export const fetchComments = (postId) => dispatch => {
     ReadableAPIUtil

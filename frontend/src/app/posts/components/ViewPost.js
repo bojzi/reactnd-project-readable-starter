@@ -28,20 +28,35 @@ class ViewPost extends Component {
 
         let post = null;
         if (posts.length > 0) {
-            post = posts.find(post => post[1].id === id)[1];
+            post = posts.find(post => post[1].id === id);
+            if (post) post = post[1];
         }
 
         return (
             <div>
-                <h2 className="ui header">View post</h2>
+                {
+                    post && (
+                        <div>
+                            <h2 className="ui header">View post</h2>
+                            <Post post={post}
+                                  basic={false}
+                                  onVote={this.vote}
+                                  onDelete={this.deleteViewingPost}/>
 
-                <Post post={post}
-                      basic={false}
-                      onVote={this.vote}
-                      onDelete={this.deleteViewingPost}/>
+                            <h3>Comments</h3>
+                            <CommentList/>
+                        </div>
+                    )
+                }
 
-                <h3>Comments</h3>
-                <CommentList/>
+                { !post && (
+                    <div>
+                        <h2 className="ui header">Post not found</h2>
+
+                        <p>Uh-oh... it seems the post could not be found. It was probably deleted.</p>
+                        <p>But that's not a problem, you can navigate to our home page and look at all the other great posts we have for you! :)</p>
+                    </div>
+                )}
             </div>
         );
     }

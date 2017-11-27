@@ -1,4 +1,4 @@
-import { REPLACE_CATEGORIES } from '../actions/categories';
+import { REPLACE_CATEGORIES } from '../actions/action.types';
 
 export function reducer(state = {}, action) {
     switch (action.type) {

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import * as moment from 'moment';
-import { createComment, deleteComment, updateComment, voteComment } from '../actions/comments';
+import * as commentActions from '../actions/comments';
 import { withRouter } from 'react-router-dom';
 import CommentForm from './CommentForm';
 import * as uuid from 'uuid';
-import { addPost } from '../../posts/actions/posts';
+import * as postActions from '../../posts/actions/posts';
+import { Comment } from './Comment';
 
 class CommentList extends Component {
     state = {
@@ -14,11 +15,11 @@ class CommentList extends Component {
     };
 
     upVote = (commentId) => {
-        this.props.dispatch(voteComment(commentId, 'upVote'));
+        this.props.dispatch(commentActions.voteComment(commentId, 'upVote'));
     };
 
     downVote = (commentId) => {
-        this.props.dispatch(voteComment(commentId, 'downVote'));
+        this.props.dispatch(commentActions.voteComment(commentId, 'downVote'));
     };
 
     formatDate = (date) => {
@@ -28,7 +29,7 @@ class CommentList extends Component {
     onDeleteComment = (comment, e) => {
         e.preventDefault();
 
-        this.props.dispatch(deleteComment(comment.id));
+        this.props.dispatch(commentActions.deleteComment(comment.id));
         this.updatePostCommentCount(false);
     };
 
@@ -40,7 +41,7 @@ class CommentList extends Component {
 
     submitComment = (values, comment) => {
         if (comment) {
-            this.props.dispatch(updateComment(comment.id, values.body, Date.now()));
+            this.props.dispatch(commentActions.updateComment(comment.id, values.body, Date.now()));
         }
         else {
             const comment = {
@@ -50,7 +51,7 @@ class CommentList extends Component {
                 author: values.name,
                 parentId: this.props.match.params.id
             };
-            this.props.dispatch(createComment(comment));
+            this.props.dispatch(commentActions.createComment(comment));
             this.updatePostCommentCount(true);
         }
 
@@ -60,7 +61,7 @@ class CommentList extends Component {
     updatePostCommentCount(adding) {
         const post = Object.entries(this.props.posts).find(post => post[1].id === this.props.match.params.id)[1];
         post.commentCount = adding ? post.commentCount + 1 : post.commentCount - 1;
-        this.props.dispatch(addPost(post))
+        this.props.dispatch(postActions.addPost(post))
     }
 
     render() {
@@ -108,48 +109,12 @@ class CommentList extends Component {
                         }
 
                         {this.state.editCommentFormId !== comment[1].id && (
-                            <div style={{marginBottom: '12px', marginTop: '12px'}} className="ui fluid card">
-                                <div className="content">
-                                    <a title="Delete comment"
-                                       href="delete-comment"
-                                       onClick={(e) => {
-                                           this.onDeleteComment(comment[1], e)
-                                       }}
-                                       className="right floated">
-                                        <i className="icon trash"></i>
-                                    </a>
-                                    <a title="Edit comment"
-                                       href="edit-comment"
-                                       onClick={(e) => {
-                                           this.onEditComment(comment[1], e)
-                                       }}
-                                       className="right floated">
-                                        <i className="icon pencil"></i>
-                                    </a>
-                                    <div className="meta">
-                                        <span>{this.formatDate(comment[1].timestamp)} by {comment[1].author}</span>
-                                    </div>
-                                    <p>
-                                        {comment[1].body}
-                                    </p>
-                                </div>
-                                <div className="extra content">
-                                <span>
-                                    <i className="icon heart"></i>
-                                    Score: {comment[1].voteScore}
-                                </span>
-                                </div>
-                                <div className="ui two bottom attached buttons">
-                                    <div className="ui basic green button"
-                                         onClick={() => this.upVote(comment[1].id)}>
-                                        Upvote
-                                    </div>
-                                    <div className="ui basic red button"
-                                         onClick={() => this.downVote(comment[1].id)}>
-                                        Downvote
-                                    </div>
-                                </div>
-                            </div>
+                            <Comment comment={comment[1]}
+                                timestamp={this.formatDate(comment[1].timestamp)}
+                                upVote={this.upVote}
+                                downVote={this.downVote}
+                                onDeleteComment={this.onDeleteComment}
+                                     onEditComment={this.onEditComment}/>
                         )}
                     </div>
                 ))}

@@ -1,4 +1,4 @@
-import { ADD_COMMENT, REMOVE_COMMENT, REPLACE_COMMENTS } from '../actions/comments';
+import { ADD_COMMENT, REMOVE_COMMENT, REPLACE_COMMENTS } from '../actions/action.types';
 
 export function reducer(state = {}, action) {
     switch (action.type) {

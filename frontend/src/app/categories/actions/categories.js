@@ -1,6 +1,5 @@
 import * as ReadableAPIUtil from '../../../utils/api';
-
-export const REPLACE_CATEGORIES = 'REPLACE_CATEGORIES';
+import { REPLACE_CATEGORIES } from './action.types';
 
 export const fetchCategories = () => dispatch => {
     ReadableAPIUtil

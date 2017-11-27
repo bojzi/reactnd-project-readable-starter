@@ -1,4 +1,4 @@
-import { ADD_POST, REMOVE_POST, REPLACE_POSTS } from '../actions/posts';
+import { ADD_POST, REMOVE_POST, REPLACE_POSTS } from '../actions/action.types';
 
 export function reducer(state = {}, action) {
     switch (action.type) {

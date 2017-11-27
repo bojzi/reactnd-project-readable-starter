@@ -1,8 +1,5 @@
 import * as ReadableAPIUtil from '../../../utils/api';
-
-export const ADD_POST = 'ADD_POST';
-export const REMOVE_POST = 'REMOVE_POST';
-export const REPLACE_POSTS = 'REPLACE_POSTS';
+import { ADD_POST, REMOVE_POST, REPLACE_POSTS } from './action.types';
 
 export const fetchPosts = (posts) => dispatch => {
     ReadableAPIUtil
